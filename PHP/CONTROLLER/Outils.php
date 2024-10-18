@@ -55,7 +55,7 @@ function afficherPage($page)
     // Ensure BASE_DIR is defined at the root of your project
     // define('BASE_DIR', dirname(__DIR__, 2)); // Adjust depth to reach your root directory
 
-    $chemin = $page[0];
+    $path = $page[0];
     $nom = $page[1];
     $titre = $page[2];
     $roleRequis = $page[3];
@@ -65,18 +65,18 @@ function afficherPage($page)
     if ($roleConnecte >= $roleRequis) {
         if ($api) {
             // Include page using BASE_DIR
-            include BASE_DIR . '/' . $chemin . $nom . '.php';
+            include BASE_DIR . '/' . $path . $nom . '.php';
         } else {
             // Include general layout files using BASE_DIR
             include BASE_DIR . '/PHP/VIEW/GENERAL/Head.php';
             include BASE_DIR . '/PHP/VIEW/GENERAL/Header.php';
 
-            if (isset($_SESSION["utilisateur"]) && stripos($chemin, "PHP/CONTROLLER/ACTION/") !== 0) {
+            if (isset($_SESSION["utilisateur"]) && stripos($path, "PHP/CONTROLLER/ACTION/") !== 0) {
                 include BASE_DIR . '/PHP/VIEW/GENERAL/Nav.php';
             }
 
             // Include the specific page using BASE_DIR
-            include BASE_DIR . '/' . $chemin . $nom . '.php';
+            include BASE_DIR . '/' . $path . $nom . '.php';
 
             include BASE_DIR . '/PHP/VIEW/GENERAL/Footer.php';
         }
