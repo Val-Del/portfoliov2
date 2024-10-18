@@ -130,7 +130,6 @@ function appelGet($obj, $chaine)
 {
 	$methode = 'get' . ucfirst($chaine);
 	return call_user_func(array($obj, $methode));
-
 }
 
 /**
