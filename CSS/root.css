@@ -1,7 +1,8 @@
 :root {
     --bg_windows: #aab1be;
-    --bg_windows_foreground: #80848e;
-    --bg_folder: #eeeeee;
+    --bg_windows_light: #e6e9f0;
+    --bg_windows_foreground: #969ba7;
+    --bg_folder: #ffffff;
   }
 /* Box sizing rules */
 *,
@@ -252,6 +253,10 @@ body {
     overflow: hidden;
     margin-bottom: 1rem;
 }
+.icon-pfp{
+    border-radius: 999%;
+    overflow: hidden;
+}
 .windows11-login-container {
     position: relative;
     width: 240px;
@@ -286,7 +291,7 @@ body {
     padding-left: 10px;
 }
 /* --------------------------Icons Desktop-------------------------- */
-.icons{
+.icons-desktop{
     display: none;
     grid-auto-flow: column;
     height: calc(100% - 30px);
@@ -297,7 +302,7 @@ body {
 .no-select {
     user-select: none;
 }
-.icons li{
+.icons-desktop li{
     display: flex;
     flex-direction: column;
     padding: 5px 10px;
@@ -306,18 +311,18 @@ body {
     outline: transparent solid 1px;
     height: min-content;
 }
-.icons li:hover {
+.icons-desktop li:hover {
     background-color: rgba(162, 186, 205, 0.25);
     outline: rgba(183, 200, 213, 0.8) solid 1px;
     cursor: pointer;
 }
-.icons .selected {
+.icons-desktop .selected {
     background-color: rgba(162, 186, 205, 0.80) !important;
     outline: rgba(183, 200, 213, 0.9) solid 1px !important;
     cursor: pointer;
 }
 
-.icons p{
+.icons-desktop p{
     color: rgb(255, 255, 255);
     font-size: 12px;
     line-height: 1.2;
@@ -327,12 +332,12 @@ body {
     text-align: center;
     padding-bottom: 1px;
 }
-.loged .icons{ 
+.loged .icons-desktop{ 
     display: grid;
-    gap: 10px 1px;
+    gap: 6px 1px;
     grid-auto-flow: row;
     grid-template-columns: repeat(auto-fill, 74px);
-    grid-template-rows: repeat(auto-fill, 95px);
+    grid-template-rows: repeat(auto-fill, 85px);
 }
 
 /* --------------------------Dragging-------------------------- */
@@ -418,6 +423,22 @@ body {
 .hide {
     display: none;
 }
+.dir{
+    width: 100%;
+    background-color: var(--bg_windows_light);
+}
+.dirInput{
+    min-width: fit-content;
+    min-width: 500px;
+    margin: 0.5rem;
+    padding: 0.3rem;
+    border: none;
+    outline: none;
+}
+.dirInput:active{
+    border: none;
+    outline: none;
+}
 .controls{
     position: absolute;
     left: 0;
@@ -433,17 +454,29 @@ body {
     background-color: var(--bg_windows_foreground);
 }
 .close{
-    margin-left: auto;
+    /* margin-left: auto; */
     padding: 0.2rem;
     width: 25px;
+}
+.maximize{
+    margin-left: auto;
+    padding: 0.3rem;
+    width: 25px;
+}
+.max .folder, .max .pdf{
+    top: 25px;
+    right: 0rem;
+    bottom: 0rem;
+    width: 100%;
 }
 .back {
     padding: 0.2rem;
     padding-left: 5px;
     width: 25px;
+    height: auto;
 }
-.close:hover, .back:hover{
-    background-color: rgb(88, 88, 88);
+.close:hover, .back:hover, .maximize:hover{
+    background-color: rgb(124, 122, 122);
 }
 
 /* Icons in folder */
@@ -455,8 +488,6 @@ body {
     grid-template-rows: repeat(auto-fill, 70px);
     margin-left: 15px; 
     margin-top: 15px;
-    
-
 }
 .icons-folder li{
     display: flex;
@@ -489,6 +520,7 @@ body {
     padding-bottom: 1px;
     word-break: keep-all;
     overflow-wrap: normal;
+    /* min-height: 32px; */
 }
 .align-txt{
     display: flex;
