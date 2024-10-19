@@ -1,7 +1,6 @@
 <main>
     <div id="warning">
         <p>The website is primarily designed for computers.</p>
-        <img id=closeWarning src="IMG/crossWhite.png" alt="close the warning">
     </div>
     <div class=loging-overlay></div>
     <div class=loging>

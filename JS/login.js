@@ -1,9 +1,9 @@
 export function initLogin() {
     const closeWarning = document.getElementById("closeWarning");
     const warning = document.getElementById("warning");
-    closeWarning.addEventListener('touchstart', function (e) {
-        warning.classList.add('hide')
-    });
+    setTimeout(function() {
+        warning.classList.add('hide');
+    }, 2500);
 
     const input = document.getElementById("login-password");
     input.focus();

@@ -166,10 +166,6 @@ input[type="number"] {
 #warning.hide {
     transform: translateY(-100%);
 }
-#closeWarning {
-    padding-left: 0.5rem;
-    width: 30px;
-}
 
 /*---------------Backgrounds---------------*/
 body {
