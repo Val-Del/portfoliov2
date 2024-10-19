@@ -5,6 +5,7 @@ $path = filter_var($path, FILTER_SANITIZE_URL);
 // Use "C:/" as the default if the path does not start with "C:/"
 if (strpos($path, 'C:/') !== 0) {
     $path = 'C:/';
+    $noreturn = true;
 }
 
 $src = 'IMG/maximize.png';
@@ -16,8 +17,10 @@ if (substr($path, -4) === '.pdf') {
     $file = substr($path, strrpos($path, '/') + 1);
     echo '<div class="pdf frontWindow">';
         echo '<div class="controls flex">';
-            $parentPath = dirname($path) . '/';
-            echo '<img data-path="' . $parentPath . '" class="back" src="IMG/back-arrow.png" alt="return to the previous window">';
+            if (!isset($noreturn)) {
+                $parentPath = dirname($path) . '/';
+                echo '<img data-path="' . $parentPath . '" class="back" src="IMG/back-arrow.png" alt="return to the previous window">';
+            }
             echo '<img class="maximize" src="' . $src . '" alt="change the window size">';
             echo '<img class="close" src="IMG/cross.png" alt="close the window">';
         echo '</div>';
@@ -27,8 +30,10 @@ if (substr($path, -4) === '.pdf') {
     $otherPaths = PathsManager::getList(null, ['path' => $path]);
     echo '<div class="folder frontWindow">';
         echo '<div class="controls flex">';
+        if (!isset($noreturn)) {
             $parentPath = dirname($path) . '/';
             echo '<img data-path="' . $parentPath . '" class="back" src="IMG/back-arrow.png" alt="return to the previous window">';
+        }
             echo '<img class="maximize" src="' . $src . '" alt="change the window size">';
             echo '<img class="close" src="IMG/cross.png" alt="close the window">';
         echo '</div>';
