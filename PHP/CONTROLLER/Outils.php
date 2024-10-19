@@ -91,19 +91,6 @@ function afficherPage($page)
         include BASE_DIR . '/PHP/VIEW/GENERAL/Footer.php';
     }
 }
-//extract subdomains if it exists
-function subdomainName(){
-	$host = $_SERVER['HTTP_HOST'];
-	// Split the domain by '.' (dot)
-	$hostParts = explode('.', $host);
-	// Extract the subdomain
-	if (count($hostParts) > 2) {
-		// The first part is the subdomain
-		$subdomain = $hostParts[0];
-		return $subdomain;
-	}else {
-	}
-}
 
 // A coder pour décoder les informations base de données dans le json
 function decode($texte)
@@ -199,28 +186,6 @@ function truncateByChars($string, $limit, $ellipsis = '...') {
     return $string;
 }
 
-function displayArticle(Articles $article, $imgSize='regular'){
-	// var_dump($imgSize);
-	// var_dump($article);
-	echo '<a href="?page=Article&Slug='.$article->getSlug().'&mode=article&id=' . $article->getId() . '">';
-		$img = $article->getFeaturedImage();
-		if (isset($img)) {
-			echo '<img src="';
-			echo showImage($article->getId(), $img, $imgSize);
-			echo '">';
-		} else {
-			echo '<img src="IMG/default.jpg">';
-		}
-		echo '<div class=bottom-article>';
-			echo '<div>';
-			echo '<h3 class="title-os">' . $article->getTitle() . '</h3>';
-			echo '</div>';
-			echo '<p>' . truncateByChars($article->getExcerpt(), 100) . '</p>';
-			// echo '<p>' . $article->getExcerpt() . '</p>';
-			echo '<button class="read">Read more</button>';
-		echo '</div>';
-	echo '</a>';
-}
 
 function showImage($id, $filename, $size = 'regular', $type = 'article', $compressThreshold = 500000) {
     // Define size dimensions
