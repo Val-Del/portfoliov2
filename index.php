@@ -13,7 +13,9 @@ session_start();
 
 $routes = [
 	// "Default" => ["PHP/VIEW/FORM/", "FormConnexion", "Connexion", 0, false],
-	"Home" => ["PHP/VIEW/GENERAL/", "Home", "", 0, false],
+	"Home" => ["PHP/VIEW/GENERAL/", "Home", "Home", 0, false],
+	"Desktop" => ["PHP/VIEW/GENERAL/", "Desktop", "Home", 0, false],
+	"Portfolio" => ["PHP/VIEW/GENERAL/", "Portfolio", "Portfolio", 0, false],
 	"Erreur" => ["PHP/VIEW/GENERAL/", "Erreur", "titreErreur", 0, false],
 	//AJAX
 	"ActionPath" => ["PHP/CONTROLLER/ACTION/", "ActionPath", "ActionPath", 0, true],
