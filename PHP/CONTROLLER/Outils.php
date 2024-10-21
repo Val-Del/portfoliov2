@@ -69,7 +69,22 @@ function afficherPage($page)
         } else {
             // Include general layout files using BASE_DIR
             include BASE_DIR . '/PHP/VIEW/GENERAL/Head.php';
-            include BASE_DIR . '/PHP/VIEW/GENERAL/Header.php';
+            if (isset($nom)) {
+                switch ($nom) {
+                    // case 'Desktop':
+                    //     echo '<link rel="stylesheet" href="CSS/desktop.css">';
+                    //     break;
+                    case 'Portfolio':
+                        include BASE_DIR . '/PHP/VIEW/GENERAL/HeaderPortfolio.php';
+                        break;
+                    // case 'Home':
+                    //     echo '<link rel="stylesheet" href="CSS/home.css">';
+                    //     break;
+                    default:
+                        include BASE_DIR . '/PHP/VIEW/GENERAL/Header.php';
+                        break;
+                }
+            }
 
             if (isset($_SESSION["utilisateur"]) && stripos($path, "PHP/CONTROLLER/ACTION/") !== 0) {
                 include BASE_DIR . '/PHP/VIEW/GENERAL/Nav.php';
