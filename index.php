@@ -19,6 +19,7 @@ $routes = [
 	"Erreur" => ["PHP/VIEW/GENERAL/", "Erreur", "titreErreur", 0, false],
 	//AJAX
 	"ActionPath" => ["PHP/CONTROLLER/ACTION/", "ActionPath", "ActionPath", 0, true],
+	"Generate" => ["PHP/CONTROLLER/ACTION/", "Generate", "Generate", 0, false]
 ];
 
 if (isset($_GET["page"])) {
