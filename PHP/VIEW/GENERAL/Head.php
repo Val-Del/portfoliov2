@@ -8,12 +8,30 @@ echo '<link rel="icon" type="image/x-icon" href="./IMG/s.png">';
 echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
 echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
 echo '<meta name="description" content="Portfolio of Valentin Bruneel" />';
-echo'
+echo '
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons">
+<link rel="stylesheet" href="CSS/style.css">
+';
+echo '
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-    <link rel="stylesheet" href="CSS/root.css">';
+    <link rel="stylesheet" href="CSS/root.css">
+';
+if (isset($nom)) {
+    switch ($nom) {
+        case 'Desktop':
+            echo '<link rel="stylesheet" href="CSS/desktop.css">';
+            break;
+        case 'Portfolio':
+            echo '<link rel="stylesheet" href="CSS/portfolio.css">';
+            break;
+        case 'Home':
+            echo '<link rel="stylesheet" href="CSS/home.css">';
+            break;
+        default:
+            break;
+    }
+}
  echo '
- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons">
- <link rel="stylesheet" href="CSS/style.css">
 </head>
  ';
