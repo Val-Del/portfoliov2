@@ -1,0 +1,16 @@
+body{
+    background-image: url('../IMG/matrix.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.home a{
+    padding: 2rem;
+    background-color: white;
+    color: black;
+}
+.home {
+    justify-content: space-around;
+    height: 100%;
+    align-items: center;
+}

@@ -1,0 +1,39 @@
+body{
+    background-color: #F5F5F5;
+}
+.left, .right{
+    width: 5%;
+    background-color: rgb(165, 165, 165);
+}
+.left{
+    margin-right: auto;
+}
+.right{
+    margin-left: auto;
+}
+.content{
+    flex-grow: 2;
+    justify-content: space-between;
+    align-items: center;
+}
+/* header */
+header{
+    line-height: 4rem;
+    background-color: white;
+}
+header h1.name{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+}
+.social ul {
+    justify-content: flex-end
+}
+header li {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+}
+header .content > * {
+    width: 33%;
+}
+/* me */
