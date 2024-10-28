@@ -60,6 +60,9 @@ function afficherPage($page)
     $titre = $page[2];
     $roleRequis = $page[3];
     $api = $page[4];
+    if (isset($page[5])) {
+        $alternativeCSS = $page[5];
+    }
     $roleConnecte = isset($_SESSION["utilisateur"]) ? $_SESSION["utilisateur"]->getRole() : 0;
 
     if ($roleConnecte >= $roleRequis) {
@@ -69,11 +72,12 @@ function afficherPage($page)
         } else {
             // Include general layout files using BASE_DIR
             include BASE_DIR . '/PHP/VIEW/GENERAL/Head.php';
+            if (isset($alternativeCSS)) {
+                echo '<link rel="stylesheet" href="CSS/'.$alternativeCSS.'">';
+            }
             if (isset($nom)) {
                 switch ($nom) {
-                    // case 'Desktop':
-                    //     echo '<link rel="stylesheet" href="CSS/desktop.css">';
-                    //     break;
+                    case 'WorkDetails':
                     case 'Portfolio':
                         include BASE_DIR . '/PHP/VIEW/GENERAL/HeaderPortfolio.php';
                         break;
