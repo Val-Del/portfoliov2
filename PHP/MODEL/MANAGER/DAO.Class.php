@@ -65,6 +65,79 @@ class DAO
 	}
 
 	/**
+	 * Perform a SELECT query with JOIN support, using prepared statements for security.
+	 * 
+	 * @param array  $nomColonnes  Columns to select in the query, e.g. ['t.id', 't.name'].
+	 * @param string $table        The primary table to select from, e.g. 'work_technologies'.
+	 * @param array  $joins        Associative array of tables to join with, in the format ['table' => 'condition'], 
+	 *                             e.g. ['technologies' => 'technologies.id = work_technologies.technology_id'].
+	 * @param array  $conditions   Optional. Associative array of conditions for the WHERE clause, 
+	 *                             e.g. ['work_technologies.work_id' => $workId].
+	 * @param string $orderBy      Optional. Column(s) to order by, e.g. 't.name DESC'.
+	 * @param string $limit        Optional. Limit the number of results, e.g. '10'.
+	 * @param bool   $api          Optional. If true, return the result as a string; if false, return as objects.
+	 * @param bool   $debug        Optional. If true, output the generated SQL query for debugging.
+	 * 
+	 * @return array|false         Returns an array of associative arrays (if $api is true) or objects, or false on failure.
+	 */
+	public static function selectWithJoin(array $nomColonnes, string $table, array $joins, array $conditions = null, string $orderBy = null, string $limit = null, bool $api = false, bool $debug = false)
+	{
+		$db = DbConnect::getDb();
+
+		// Reusing the existing elementSelect() function for the SELECT clause
+		$cols = self::elementSelect($nomColonnes);
+		$t = " FROM " . $table;
+
+		// Building the JOIN clause
+		$joinClause = '';
+		foreach ($joins as $joinTable => $joinCondition) {
+			$joinClause .= " JOIN $joinTable ON $joinCondition";
+		}
+
+		// Use existing conditionSelect() to build the WHERE clause
+		$whereClause = '';
+		if ($conditions != null) {
+			$whereClause = self::conditionSelect($conditions); // Reuse existing conditionSelect
+		}
+
+		// Optional ORDER BY clause
+		if ($orderBy != null) {
+			$orderBy = " ORDER BY " . $orderBy;
+		}
+
+		// Optional LIMIT clause
+		if ($limit != null) {
+			$limit = " LIMIT " . $limit;
+		}
+
+		// Combine all parts into a single query string
+		$query = $cols . $t . $joinClause . $whereClause . $orderBy . $limit;
+
+		if ($debug) {
+			var_dump($query); // Show the query if debugging is enabled
+		}
+
+		// Prepare the query for execution
+		$stmt = $db->prepare($query);
+
+		// Execute the query (no need to bind parameters here since conditionSelect already handles escaping)
+		$stmt->execute();
+
+		$liste = [];
+
+		// Fetch the results
+		while ($donnees = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$liste[] = $donnees; // Add each row to the result list
+		}
+
+		return $liste;
+	}
+
+
+	
+
+
+	/**
 	 *
 	 * @param array $nomColonnes => contient le noms des champs désirés dans la requête.
 	 * Exemple :  [nomColonne1,nomColonne2] => "SELECT nomColonne1, nomColonne2"
