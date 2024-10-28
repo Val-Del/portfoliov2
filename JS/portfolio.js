@@ -3,7 +3,6 @@ window.onload = function() {
     window.addEventListener('scroll', function() {
         const scrollPosition = window.scrollY;
         const fadeOutPoint = 220;
-        // opacity based on scroll position
         const opacity = Math.max(0, 1 - (scrollPosition / fadeOutPoint));
         me.style.opacity = opacity;
     });
