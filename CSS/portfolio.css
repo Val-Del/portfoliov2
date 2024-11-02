@@ -1,6 +1,11 @@
 body{
     background-color: #F5F5F5;
 }
+html, body {
+    height: 100%;
+    min-height: 100vh;
+    overflow: auto;
+}
 header, main {
     width: 100%;
 }
@@ -74,21 +79,21 @@ h3.title{
 .me .social ul{
     justify-content: center;
 }
-.me .social li{
+.me .social li a{
     margin: 0 1rem;
     text-indent: -9999px;
     cursor: pointer;
 }
-.me .social li:first-child, .me .social li:last-child {
+.me .social li a:first-child, .me .social li a:last-child {
     width: 64px;
     height: 64px;
     /* background-color: black; */
 }
-.me .social li:first-child {
-    background-image: url('../IMG/github.png');
-}
-.me .social li:last-child {
+.me .social li:first-child  a{
     background-image: url('../IMG/linkedin.png');
+}
+.me .social li:last-child  a{
+    background-image: url('../IMG/github.png');
 }
 .me .os {
     margin-top: 1rem;
@@ -107,10 +112,11 @@ h3.title{
 .work {
     /* margin: 5rem 0; */
     margin-top: 27rem;
+    padding-bottom: 3rem;
     flex-wrap: wrap;
 
 }
-.work .card {
+.work .card, .work-details .card {
     margin: 10px;
     width: calc(25% - 20px);
     position: relative;
@@ -120,7 +126,7 @@ h3.title{
     transition: transform 0.3s ease; 
 }
 
-.work .card:hover {
+.work .card:hover, .work-details .card:hover {
     transform: scale(1.05);
 }
 
@@ -130,7 +136,7 @@ h3.title{
     display: block;
 }
 
-.work .overlay {
+.work .overlay, .work-details .overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -145,11 +151,11 @@ h3.title{
     transition: opacity 0.3s ease;
 }
 
-.work .card:hover .overlay {
+.work .card:hover .overlay, .work-details .card:hover .overlay {
     opacity: 1; 
 }
 
-.work h4, .work .technologies {
+.work h4, .work .technologies, .work-details h4, .work-details .technologies {
     color: white;
     font-size: 1.5rem;
     text-align: center;
@@ -165,8 +171,51 @@ h3.title{
     text-align: center;
     font-size: 3rem;
 }
+.work-details .techs{
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.work-details .techs li{
+    margin: 0.2rem;
+    background-color: black;
+    color: white;
+    padding: 6px 9px;
+    border-radius: 10px;
+}
+.work-details h3{
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+.work-details .other-works{
+    justify-content: center;
+    padding-bottom: 3rem;
+}
+.work-details .other-works a{
+    margin: 1rem;
+}
 .work-details .description{
+    margin: 0 auto;
     text-align: center;
     font-size: 1.2rem;
     padding: 2rem 0;
+    max-width: 900px;
+}
+.work-details .work-details-content{
+    padding-bottom: 2rem;
+}
+.work-details .work-details-content figure {
+    margin: 2rem auto;
+}
+.work-details .work-details-content img {
+    margin: auto;
+}
+.work-details .work-details-content p {
+    margin: 2rem auto;
+    max-width: 900px;
+}
+.work-details figcaption{
+    text-align: center;
+    font-style: italic;
+    color: rgb(53, 53, 53);
 }
