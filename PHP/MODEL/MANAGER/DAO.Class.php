@@ -246,20 +246,25 @@ class DAO
 	{
 		$req = " WHERE ";
 		foreach ($conditions as $nomColonne => $valeur) {
-			// cas du in
 			if (is_array($valeur)) {
+				// IN clause
 				$req .= $nomColonne . " IN (" . implode(",", $valeur) . ") AND ";
-			} else if (!(strpos($valeur, "%") === false)) { //cas like
+			} else if (!(strpos($valeur, "%") === false)) {
+				// LIKE clause
 				$req .= $nomColonne . ' LIKE "' . $valeur . '" AND ';
-			} else if (strpos($valeur, "->")) { //cas between
+			} else if (strpos($valeur, "->")) {
+				// BETWEEN clause
 				$tab = explode("->", $valeur);
 				$req .= $nomColonne . " BETWEEN " . $tab[0] . " AND " . $tab[1] . " AND ";
-			} else { //cas valeur simple
+			} else if (preg_match('/\(.+\)/', $valeur)) {
+				// Subquery, no quotes
+				$req .= $nomColonne . " = " . $valeur . " AND ";
+			} else {
+				// Standard condition, with quotes
 				$req .= $nomColonne . " = \"" . $valeur . "\" AND ";
 			}
 		}
-		//On retire le dernier AND
-		$req = substr($req, 0, strlen($req) - 4);
-		return $req;
+		return substr($req, 0, -4); // Remove the trailing ' AND '
 	}
+
 }
