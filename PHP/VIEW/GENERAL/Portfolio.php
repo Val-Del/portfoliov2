@@ -11,14 +11,14 @@
             <a class=os target="_blank" href="?page=Desktop">See my work through a different perspective.</a>
             <nav class="social">
                 <ul class="flex">
-                    <li>LinkedIn</li>
-                    <li>Github</li>
+                <li><a href="https://www.linkedin.com/in/valentin-bruneel-7880a8202/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://github.com/Val-Del?tab=repositories" target="_blank" rel="noopener noreferrer">Github</a></li>
                 </ul>
             </nav>
         </section>
         <section class="work flex">
             <?php
-            $works = WorksManager::getList();
+            $works = WorksManager::getList(null, null, 'display_order');
             if ($works) {
                 foreach ($works as $work) {
                     if ($work->getVisible()) {
@@ -37,10 +37,8 @@
                                         echo $tech;
                                         echo '</p>';
                                     }
-                                    
                                 echo '</div>';
                         echo '</a>';
-                       
                     }
                 }
             }
