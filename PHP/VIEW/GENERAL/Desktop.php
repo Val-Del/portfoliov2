@@ -27,7 +27,11 @@
                                 break;
                             case 'Folder':
                                 echo '/" >';
-                                echo '<img src="IMG/folder48x48.png" alt="folder icon">';
+                                echo '<img src="IMG/folder126x126.png" alt="folder icon">';
+                                break;
+                            case 'Pictures':
+                                echo '" >';
+                                echo '<img src="IMG/picture.png" alt="pictures icon">';
                                 break;
                             default:
                                 break;
