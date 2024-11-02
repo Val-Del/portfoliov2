@@ -1,3 +1,4 @@
+import { initializeSlider } from './slider.js';
 export function initDesktop() {
     sessionStorage.clear();
     addIconEventListeners();
@@ -93,6 +94,10 @@ export function initDesktop() {
                     addedWindow.remove();
                 }
             });
+        }
+        let slider = addedWindow.querySelector('.slider');
+        if (slider) {
+            initializeSlider(slider);
         }
     }
 
