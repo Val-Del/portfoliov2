@@ -3,11 +3,12 @@ class Works
 {
     private $_id;
     private $_name;
+    private $_content;
     private $_description;
     private $_thumbnail;
     private $_visible;
     private $_display_order;
-    private static $_attributes = ['id', 'name', 'description', 'thumbnail', 'visible', 'display_order'];
+    private static $_attributes = ['id', 'name', 'description', 'thumbnail', 'visible', 'display_order', 'content'];
 
     /** Accessors **/
     public function getId()
@@ -17,6 +18,15 @@ class Works
     public function setId($id)
     {
         $this->_id = $id;
+        return $this;
+    }
+    public function getContent()
+    {
+        return $this->_content;
+    }
+    public function setContent($content)
+    {
+        $this->_content = $content;
         return $this;
     }
 
@@ -90,5 +100,22 @@ class Works
                 $this->$method($value === "" ? null : $value);
             }
         }
+    }
+    public function displayAsCard() {
+        echo '<a href="?page=WorkDetails&id=' . $this->getId() . '" class="card">';
+        echo '<img src="IMG/' . $this->getThumbnail() . '" alt="Thumbnail for ' . $this->getName() . '">';
+        echo '<div class="overlay">';
+        echo '<h4>' . $this->getName() . '</h4>';
+
+        // Fetch and display associated technologies
+        $techs = Work_technologiesManager::findTechnologiesByWorkId($this->getId());
+        if ($techs) {
+            echo '<p class="technologies">';
+            $techNames = array_map(fn($techItem) => $techItem['name'], $techs);
+            echo implode(', ', $techNames);
+            echo '</p>';
+        }
+        echo '</div>';
+        echo '</a>';
     }
  }
