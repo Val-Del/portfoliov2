@@ -12,8 +12,6 @@ DbConnect::init();
 session_start();
 
 $routes = [
-	// "Default" => ["PHP/VIEW/FORM/", "FormConnexion", "Connexion", 0, false],
-	// "Home" => ["PHP/VIEW/GENERAL/", "Home", "Home", 0, false, 'home.css'],
 	"Resume" => ["PHP/VIEW/GENERAL/", "Resume", "Resume", 0, false],
 	"Desktop" => ["PHP/VIEW/GENERAL/", "Desktop", "Desktop", 0, false, 'desktop.css'],
 	"Portfolio" => ["PHP/VIEW/GENERAL/", "Portfolio", "Portfolio", 0, false, 'portfolio.css'],
