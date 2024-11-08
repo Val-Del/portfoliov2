@@ -65,7 +65,7 @@ if (substr($path, -4) === '.pdf') {
                 }
 
                 // Display technologies
-                $techs = Work_technologiesManager::findTechnologiesByWorkId($workId);
+                $techs = Work_TechnologiesManager::findTechnologiesByWorkId($workId);
                 if ($techs) {
                     echo '<ul class="techs flex">';
                     foreach ($techs as $tech) {
@@ -176,12 +176,12 @@ elseif (substr($path, -4) === '/Bio'){
         <div class="swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-            <img src="IMG/slider3.jpg" alt="Description of image 1">
-            <p class="slide-caption">Caption for image 1</p>
+            <img src="IMG/slider1.jpg" alt="Me as a kid">
+            <p class="slide-caption">1996, France</p>
             </div>
             <div class="swiper-slide">
             <img src="IMG/slider2.jpg" alt="Picture in France">
-            <p class="slide-caption">Carnival, Dunkirk, France</p>
+            <p class="slide-caption">Carnival of Dunkirk, France</p>
             </div>
             <div class="swiper-slide">
             <img src="IMG/slider3.jpg" alt="Picture from a plane">

@@ -12,7 +12,7 @@
         echo $work->getDescription();
         echo '</p>';
     }
-    $techs = Work_technologiesManager::findTechnologiesByWorkId($id);
+    $techs = Work_TechnologiesManager::findTechnologiesByWorkId($id);
     if ($techs) {
         // var_dump($techs);
         echo '<ul class="techs flex">';

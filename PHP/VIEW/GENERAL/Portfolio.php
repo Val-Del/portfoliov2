@@ -26,7 +26,7 @@
                                 echo '<img src=IMG/'.$work->getThumbnail().'></img>';
                                 echo '<div class=overlay>';
                                     echo '<h4>'.$work->getName().'</h4>';
-                                    $techs = Work_technologiesManager::findTechnologiesByWorkId($work->getId());
+                                    $techs = Work_TechnologiesManager::findTechnologiesByWorkId($work->getId());
                                     if ($techs) {
                                         echo '<p class="technologies">';
                                         $tech = '';
