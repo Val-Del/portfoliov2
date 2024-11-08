@@ -2,12 +2,13 @@
 class Paths
 {
 	private $_id;
+	private $_id_work;
 	private $_name;
 	private $_path;
 	private $_type;
 	private $_created_at;
 	private $_updated_at;
-	private static $_attributes = ['id','name','path','type','created_at','updated_at'];
+	private static $_attributes = ['id','name','path','type','created_at','updated_at', 'id_work'];
     /**Accesseurs**/
 	public function getId()
 	{
@@ -16,6 +17,15 @@ class Paths
 	public function setId($id)
 	{
 		$this->_id = $id;
+		return $this;
+	}
+	public function getId_work()
+	{
+		return $this->_id_work;
+	}
+	public function setId_work($id)
+	{
+		$this->_id_work = $id;
 		return $this;
 	}
 	public function getName()

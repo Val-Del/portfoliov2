@@ -50,6 +50,7 @@ function texte($codeTexte)
 	return $retour;
 }
 
+
 function afficherPage($page)
 {
     // Ensure BASE_DIR is defined at the root of your project
@@ -60,6 +61,9 @@ function afficherPage($page)
     $titre = $page[2];
     $roleRequis = $page[3];
     $api = $page[4];
+    if (isset($page[5])) {
+        $alternativeCSS = $page[5];
+    }
     $roleConnecte = isset($_SESSION["utilisateur"]) ? $_SESSION["utilisateur"]->getRole() : 0;
 
     if ($roleConnecte >= $roleRequis) {
@@ -69,7 +73,23 @@ function afficherPage($page)
         } else {
             // Include general layout files using BASE_DIR
             include BASE_DIR . '/PHP/VIEW/GENERAL/Head.php';
-            include BASE_DIR . '/PHP/VIEW/GENERAL/Header.php';
+            if (isset($alternativeCSS)) {
+                echo '<link rel="stylesheet" href="CSS/'.$alternativeCSS.'">';
+            }
+            if (isset($nom)) {
+                switch ($nom) {
+                    case 'WorkDetails':
+                    case 'Portfolio':
+                        include BASE_DIR . '/PHP/VIEW/GENERAL/HeaderPortfolio.php';
+                        break;
+                    // case 'Home':
+                    //     echo '<link rel="stylesheet" href="CSS/home.css">';
+                    //     break;
+                    default:
+                        include BASE_DIR . '/PHP/VIEW/GENERAL/Header.php';
+                        break;
+                }
+            }
 
             if (isset($_SESSION["utilisateur"]) && stripos($path, "PHP/CONTROLLER/ACTION/") !== 0) {
                 include BASE_DIR . '/PHP/VIEW/GENERAL/Nav.php';
@@ -186,8 +206,7 @@ function truncateByChars($string, $limit, $ellipsis = '...') {
     return $string;
 }
 
-
-function showImage($id, $filename, $size = 'regular', $type = 'article', $compressThreshold = 500000) {
+function showImage($filename, $id = '', $size = 'regular', $type = 'article', $compressThreshold = 500000){
     // Define size dimensions
     $sizes = [
         'small' => [100, 100],
@@ -211,8 +230,10 @@ function showImage($id, $filename, $size = 'regular', $type = 'article', $compre
         return 'IMG/default.jpg'; // Default image path
     }
 
+    // Create folder path with or without ID based on if $id is provided
+    $folderPath = $id ? "IMG/{$type}_{$id}" : "IMG/{$type}";
+    
     // Create folder for the resized images if it doesn't exist
-    $folderPath = "IMG/{$type}_{$id}";
     if (!is_dir($folderPath)) {
         mkdir($folderPath, 0777, true);
     }
@@ -243,6 +264,7 @@ function showImage($id, $filename, $size = 'regular', $type = 'article', $compre
     // Return the path to the resized image
     return $sizePath;
 }
+
 
 function compressImage($imgResource, $sizePath, $quality = 80) {
     // Determine format based on file extension
