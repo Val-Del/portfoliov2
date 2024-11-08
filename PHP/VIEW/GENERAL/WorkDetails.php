@@ -24,9 +24,50 @@
         echo '</ul>';
     }
     if ($work->getContent()) {
+        $content = $work->getContent();
+        $modifiedContent = $content; // Copy to store modified content
+
+        // Match <img> tags
+        preg_match_all('/<img[^>]+src=["\']([^"\']+)["\'][^>]*>/i', $content, $matches);
+
+        foreach ($matches[0] as $key => $imgTag) {
+            $originalSrc = $matches[1][$key]; // Original src
+            $filename = basename($originalSrc); // Filename from src
+            $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION)); // Get file extension
+
+            // Check if it's a GIF
+            if ($extension === 'gif') {
+                // For GIFs, keep the original src without creating a srcset
+                $modifiedImgTag = $imgTag; // No modification for GIFs
+            } else {
+                // Process non-GIF images with showImage for responsive srcset
+                $srcSmall = showImage($filename, 'small');   // For phones
+                $srcRegularX = showImage($filename, 'regularX'); // For tablets
+
+                // Construct the srcset attribute for responsive images
+                $srcset = "$srcSmall 400w, $srcRegularX 600w, $originalSrc 800w";
+
+                // Use sizes to control which image is loaded based on viewport width
+                $sizes = "(max-width: 599px) 400px, (max-width: 1024px) 600px, 800px";
+
+                // Replace the original <img> tag with the modified version including srcset and sizes
+                $modifiedImgTag = preg_replace(
+                    '/src=["\'][^"\']+["\']/', 
+                    'src="' . $originalSrc . '" srcset="' . $srcset . '" sizes="' . $sizes . '"', 
+                    $imgTag
+                );
+            }
+
+            // Update the modified content with the processed img tag
+            $modifiedContent = str_replace($imgTag, $modifiedImgTag, $modifiedContent);
+        }
+
+        // Output the modified content
         echo '<div class="work-details-content">';
-        echo $work->getContent();
+        echo $modifiedContent;
         echo '</div>';
+
+        
     }
     if ($work->getDisplay_order()) {
         echo '<h3>Other Works</h3>';

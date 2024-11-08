@@ -42,43 +42,6 @@ body {
     background-repeat: no-repeat;
 }
 
-/* @media (min-width: 360px) {
-    body {
-        background-image: url(../IMG/mobileXL.jpg);
-    }
-}
-@media (min-width: 600px) {
-    body {
-        background-image: url(../IMG/background-1280x720.jpg);
-    }
-}
-@media (min-width: 1200px) {
-    body {
-        background-image: url(../IMG/background-1400x900.jpg);
-    }
-}
-@media (min-width: 1600px) {
-    body {
-        background-image: url('../IMG/background-1600x900.jpg');
-    }
-}
-@media (min-width: 1920px) {
-    body {
-        background-image: url(../IMG/background-1920x1080.jpg);
-    }
-}
-
-@media (min-width: 2560px) {
-    body {
-        background-image: url(../IMG/background-2560x1440.jpg);
-    }
-}
-
-@media (min-width: 3840px) {
-    body {
-        background-image: url(../IMG/background-3840x2160.jpg);
-    }
-} */
 /* --------------------------Login-------------------------- */
 .loging-overlay {
     position: absolute;
@@ -330,6 +293,12 @@ body {
     outline: none;
 }
 
+@media only screen and (max-width: 520px) {
+    .dirInput {
+        min-width: 305px;
+    }
+    
+}
 .dirInput:active {
     border: none;
     outline: none;
@@ -442,25 +411,31 @@ body {
     min-height: 32px;
 }
 /* SLIDER */
-.pictures {
+.swiper img{
+margin: auto;
+background-color: #202020;
+}
+.swiper{
+    height: 100%;
     background-color: #202020;
 }
-
-.slider * {
-    box-sizing: border-box;
+.swiper-pagination-bullet{
+    background-color: #b1b1b1;
 }
-.slider .caption {
-    color: white;
-    text-align: center;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-}
-
-.slider {
+.swiper-slide  {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Center the slider vertically on the viewport */
+}
+.swiper .slide-caption {
+    position: absolute;
+    top: 10px;
+    left:  50%;
+    transform: translateX(-50%);
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    max-width: calc(100% - 20px); /* Adjust width as needed */
 }
 
 .slider .container {
@@ -556,7 +531,7 @@ body {
 
 .slider .thumbnail:hover {
     transform: scale(1.1);
-}
+} 
 /* work-details */
 .scrollable-element {
     height: calc(100vh - 1rem);
@@ -572,6 +547,7 @@ body {
     text-align: center;
     font-size: 3rem;
 }
+
 .work-details .techs{
     justify-content: center;
     margin-bottom: 2rem;
@@ -619,4 +595,13 @@ body {
     text-align: center;
     font-style: italic;
     color: rgb(53, 53, 53);
+}
+@media only screen and (max-width: 1250px) {
+    .work-details {
+        margin: 2rem 0;
+        width: 100%;
+    }
+    .work-details h1{
+        font-size: 2.2rem;
+    }
 }

@@ -1,1 +1,1 @@
-<body>
+<body class=loged>

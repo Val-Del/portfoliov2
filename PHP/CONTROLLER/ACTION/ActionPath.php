@@ -76,7 +76,49 @@ if (substr($path, -4) === '.pdf') {
 
                 // Display work content
                 if ($work->getContent()) {
-                    echo '<div class="work-details-content">' . $work->getContent() . '</div>';
+                    $content = $work->getContent();
+                    $modifiedContent = $content; // Copy to store modified content
+            
+                    // Match <img> tags
+                    preg_match_all('/<img[^>]+src=["\']([^"\']+)["\'][^>]*>/i', $content, $matches);
+            
+                    foreach ($matches[0] as $key => $imgTag) {
+                        $originalSrc = $matches[1][$key]; // Original src
+                        $filename = basename($originalSrc); // Filename from src
+                        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION)); // Get file extension
+            
+                        // Check if it's a GIF
+                        if ($extension === 'gif') {
+                            // For GIFs, keep the original src without creating a srcset
+                            $modifiedImgTag = $imgTag; // No modification for GIFs
+                        } else {
+                            // Process non-GIF images with showImage for responsive srcset
+                            $srcSmall = showImage($filename, 'small');   // For phones
+                            $srcRegularX = showImage($filename, 'regularX'); // For tablets
+            
+                            // Construct the srcset attribute for responsive images
+                            $srcset = "$srcSmall 400w, $srcRegularX 600w, $originalSrc 800w";
+            
+                            // Use sizes to control which image is loaded based on viewport width
+                            $sizes = "(max-width: 599px) 400px, (max-width: 1024px) 600px, 800px";
+            
+                            // Replace the original <img> tag with the modified version including srcset and sizes
+                            $modifiedImgTag = preg_replace(
+                                '/src=["\'][^"\']+["\']/', 
+                                'src="' . $originalSrc . '" srcset="' . $srcset . '" sizes="' . $sizes . '"', 
+                                $imgTag
+                            );
+                        }
+            
+                        // Update the modified content with the processed img tag
+                        $modifiedContent = str_replace($imgTag, $modifiedImgTag, $modifiedContent);
+                    }
+            
+                    // Output the modified content
+                    echo '<div class="work-details-content">';
+                    echo $modifiedContent;
+                    echo '</div>';
+                    // echo '<div class="work-details-content">' . $work->getContent() . '</div>';
                 }
 
                 // Display other works by order
@@ -130,54 +172,39 @@ elseif (substr($path, -4) === '/Bio'){
             echo '<img class="maximize" src="' . $src . '" alt="change the window size">';
             echo '<img class="close" src="IMG/cross.png" alt="close the window">';
         echo '</div>';
-        // echo '<nav class="dir">';
-        //     echo '<input class="dirInput" value="' . $path . '">';
-        // echo '</nav>';
-        $imageArr = [
-            "https://images.pexels.com/photos/28874274/pexels-photo-28874274.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" => "Fidon text number 1",
-            "https://images.pexels.com/photos/208321/pexels-photo-208321.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" => "Figcaption text number 2",
-            "https://images.pexels.com/photos/620337/pexels-photo-620337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" => "Figcaption text number 3",
-            "https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" => "Figcaption text number 4",
-            "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" => "Figcaption text number 5"
-        ];
-        
-        echo '
-        <div class="slider">
-            <div class="container">
-                <!-- Top section with arrows and main image frame -->
-                <div class="top">
-                    <i class="fas fa-chevron-left arrow left"></i>
-                    <div class="frame">
-                        <div class="slide">';
-        
-        foreach ($imageArr as $imageSrc => $caption) {
-            echo '
-                            <figure>
-                                <img class="image" src="' . $imageSrc . '" alt="Slider Image" data-caption="' . htmlspecialchars($caption) . '">
-                            </figure>';
-        }
-        
-        echo '
-                        </div>
-                    </div>
-                    <i class="fas fa-chevron-right arrow right"></i>
-                </div>
-        
-                <!-- Caption section outside of the main figure -->
-                <p class="caption">' . reset($imageArr) . '</p> <!-- Display the caption of the first image initially -->
-        
-                <!-- Bottom section for thumbnails -->
-                <div class="bottom">';
-        
-        foreach ($imageArr as $imageSrc => $caption) {
-            echo '<img class="thumbnail" src="' . $imageSrc . '" alt="Thumbnail">';
-        }
-        
-        echo '
-                </div>
+        echo'
+        <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+            <img src="IMG/slider3.jpg" alt="Description of image 1">
+            <p class="slide-caption">Caption for image 1</p>
             </div>
-        </div>';
-    echo '</div>';
+            <div class="swiper-slide">
+            <img src="IMG/slider2.jpg" alt="Picture in France">
+            <p class="slide-caption">Carnival, Dunkirk, France</p>
+            </div>
+            <div class="swiper-slide">
+            <img src="IMG/slider3.jpg" alt="Picture from a plane">
+            <p class="slide-caption">Over Spain</p>
+            </div>
+            <div class="swiper-slide">
+            <img src="IMG/slider4.jpg" alt="Me and my wife">
+            <p class="slide-caption">Making sure world\'s biggest pistachio is not falling down with my wifey</p>
+            </div>
+            <div class="swiper-slide">
+            <img src="IMG/slider5.jpg" alt="Me visiting Roswell">
+            <p class="slide-caption">Visiting Roswell</p>
+            </div>
+            <div class="swiper-slide">
+            <img src="IMG/slider6.jpg" alt="Image of my dog">
+            <p class="slide-caption">With my 10-month-old giant pup</p>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        </div>
+        ';
 }
 else {
     $otherPaths = PathsManager::getList(null, ['path' => $path], 'display_order');

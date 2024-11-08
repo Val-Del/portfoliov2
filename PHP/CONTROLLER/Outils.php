@@ -50,6 +50,7 @@ function texte($codeTexte)
 	return $retour;
 }
 
+
 function afficherPage($page)
 {
     // Ensure BASE_DIR is defined at the root of your project
@@ -205,8 +206,7 @@ function truncateByChars($string, $limit, $ellipsis = '...') {
     return $string;
 }
 
-
-function showImage($id, $filename, $size = 'regular', $type = 'article', $compressThreshold = 500000) {
+function showImage($filename, $id = '', $size = 'regular', $type = 'article', $compressThreshold = 500000){
     // Define size dimensions
     $sizes = [
         'small' => [100, 100],
@@ -230,8 +230,10 @@ function showImage($id, $filename, $size = 'regular', $type = 'article', $compre
         return 'IMG/default.jpg'; // Default image path
     }
 
+    // Create folder path with or without ID based on if $id is provided
+    $folderPath = $id ? "IMG/{$type}_{$id}" : "IMG/{$type}";
+    
     // Create folder for the resized images if it doesn't exist
-    $folderPath = "IMG/{$type}_{$id}";
     if (!is_dir($folderPath)) {
         mkdir($folderPath, 0777, true);
     }
@@ -262,6 +264,7 @@ function showImage($id, $filename, $size = 'regular', $type = 'article', $compre
     // Return the path to the resized image
     return $sizePath;
 }
+
 
 function compressImage($imgResource, $sizePath, $quality = 80) {
     // Determine format based on file extension

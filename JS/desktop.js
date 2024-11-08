@@ -95,7 +95,7 @@ export function initDesktop() {
                 }
             });
         }
-        let slider = addedWindow.querySelector('.slider');
+        let slider = addedWindow.querySelector('.swiper');
         if (slider) {
             initializeSlider(slider);
         }
